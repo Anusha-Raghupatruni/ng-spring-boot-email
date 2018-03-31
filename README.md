@@ -41,6 +41,10 @@ in MailGun) e.g https://api.mailgun.net/v3/sandboxxxxxxx.mailgun.org
 * The project can be build by Maven and it will build each of the modules inside the project:
 >* `backend` - The backend module of the project, based on Spring Boot
 >* `frontend` - The frontend module of the project, based on Angular (setup with Angular CLI)
+* Comment out the other properties inside `application.properties`, they are used for deployment only i.e. comment out
+>* server.port
+>* logging.level.org.springframework
+>* spring.profiles.active
 * Once [Maven](https://maven.apache.org/) is setup and configured, executes the command:
 ```sh
 mvn clean install
@@ -156,6 +160,7 @@ HTTP Client to submit the REST requests)
 * More unit tests for the Java REST API and DTOs
 * Integration tests for connections to the external mail system (for the error cases)
 * Can create Postman scripts for testing and validating both incoming to the REST API and outing to the external REST API
+* Browsers and mobile testing of the UI
 
 ### Documentation
 The REST API should be documented e.g as YAML files
