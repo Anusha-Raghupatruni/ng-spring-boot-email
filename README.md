@@ -56,12 +56,14 @@ java -jar backend/target/email-backend-1.0-SNAPSHOT.jar
 >* By default the Spring Boot web application is located at: `http://localhost:8080`
 >* The frontend module build would have implicitly done a Node and NPM install of packages including 
 Angular CLI.
->* The Angular CLI development server can be used to view and debug the frontend code.
+>* The Angular CLI development server can be used to view and continuous build and watch for frontend code changes.
 >* Go inside the directory `/frontend/src/main/ng-email`, executes the command:
 ```sh
-npm run start
+npm run start:dev
 ```
 >* By default the Angular SPA is located at: `http://localhost:4200`
+>* Note that the file proxy.conf.json inside the directory `/frontend/src/main/ng-email` is used to proxy the
+SPA request to the Spring Boot REST API at `8080`. This is used to get pass CORS issues during development only.
 
 ### Deployment
 The project is currently ready to be deployed into Heroku. Th file `Procfile` is included in the root directory.
@@ -117,12 +119,17 @@ mail server is down. The user can freely re-check the mail server status and sen
 * Form validation: Size limit on the content of the email message (this will also help reduce the number of errors 
 responses back from external mail server i.e. HTTP status 413)
 * Connection timeout settings for the HTTP requests and make the number of retries configurable
+* Calling the Check Server Status endpoint can potentially be regular polling, instead of the current way where user has
+to manually click button to check
 * Code:
 >* Move common values into constants (especially the name of the form fields, error prone to typing!)
 >* Move common component e.g. the Spinner Overlay, outside of the Send Email component for reuse
 >* Move app component out to main app view and into their own component e.g. the server status toolbar can be made 
 into an individual component on its own, and then added to the main app-component
+>*Try to pick up the form fields that caused the Http request errors when calling the Spring Boot API. The
+  form fields can be picked up from the response error body data. Then can return more helpful error messages to user.
 >* Create custom Email Validator instead of Angular's (as the Angular one seems to be very basic!)
+>* JS and CSS Tree Shaking before bundle can be production ready!
 
 ### Backend
 * More parameters validations on the REST API to match the frontend (the validations on the backend should at the very 
