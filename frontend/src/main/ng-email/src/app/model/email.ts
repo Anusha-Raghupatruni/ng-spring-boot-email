@@ -25,28 +25,16 @@ export class Email implements Mapper<Email>{
     }
 
     if (input.recipients && input.recipients[0]) {
-      // const firstPerson = new Person().map(input.recipients);
-      // const newRecipients = new Array<Person>();
-      // newRecipients.push(firstPerson);
-      // recipients = newRecipients;
       recipients = input.recipients;
     } else {
       throw new Error('Recipients are required');
     }
 
     if (input.ccs) {
-      // const firstPerson = new Person().map(input.recipients);
-      // const newRecipients = new Array<Person>();
-      // newRecipients.push(firstPerson);
-      // recipients = newRecipients;
       ccs = input.ccs;
     }
 
     if (input.bccs) {
-      // const firstPerson = new Person().map(input.recipients);
-      // const newRecipients = new Array<Person>();
-      // newRecipients.push(firstPerson);
-      // recipients = newRecipients;
       bccs = input.bccs;
     }
 
