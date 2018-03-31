@@ -1,12 +1,14 @@
 # Angular Spring Boot Email Sending System
 
-This an email sending system that integrates with third party mailing server 
-to send emails given some user inputs.
-
-Specifically this project uses Angular for the frontend and Spring Boot for 
-the backend integration. 
+An email sending system that integrates with third party mailing server to send emails on behalf for the user.
 
 The aim of the system is to provide a smooth experience to the user.
+
+This project uses Angular for the frontend and Spring Boot for the backend integration. 
+
+* auto-gen TOC:
+{:toc}
+
 
 ## Technology Used
 * Angular Material - The UI framework used for the design of the SPA
