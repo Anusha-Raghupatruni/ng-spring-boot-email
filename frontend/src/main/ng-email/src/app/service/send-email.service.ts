@@ -11,7 +11,7 @@ import { Person } from '../model/person';
 
 @Injectable()
 export class SendEmailService {
-  private static readonly ENDPOINT_BASE_URL: string = '/email/v1';
+  private static readonly ENDPOINT_BASE_URL: string = (process.env.MAIL_SERVER_URL || '') + '/email/v1';
 
   constructor(private http: HttpClient) { }
 
