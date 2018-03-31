@@ -23,6 +23,10 @@ This project uses Angular for the frontend and Spring Boot for the backend integ
 entire application cannot be completed, which means developer testing might be limited for some.
 * I deliberately tried to setup a project that can run the back and front end together, so that the end to end flow of requests can be seen through.
 
+### Requirements
+* Java JDK 1.8
+* Maven 3
+
 ### Pre-requsite
 * The current system is able to integrate with:
 >* [SendGrid](https://sendgrid.com)
@@ -147,6 +151,7 @@ HTTP Client to submit the REST requests)
 * Unit tests some TypeScript classes / functions (e.g. Mocha / JEST)
 * More unit tests for the Java REST API and DTOs
 * Integration tests for connections to the external mail system (for the error cases)
+* Can create Postman scripts for testing and validating both incoming to the REST API and outing to the external REST API
 
 ### Documentation
 The REST API should be documented e.g as YAML files
