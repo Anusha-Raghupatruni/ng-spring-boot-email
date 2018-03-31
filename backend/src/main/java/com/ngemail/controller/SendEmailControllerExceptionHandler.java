@@ -33,7 +33,7 @@ public class SendEmailControllerExceptionHandler extends ResponseEntityException
         }
 
         final SendEmailResponse response = new SendEmailResponse();
-        Map<String, Object> data = new HashMap<>(2);
+        final Map<String, Object> data = new HashMap<>(2);
         data.put("message", "Validation failed for request arguments");
         data.put("errors", errors);
         response.setData(data);
