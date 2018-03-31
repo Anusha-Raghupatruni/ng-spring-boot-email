@@ -1,11 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, tap } from 'rxjs/operators';
-import * as envDev from '../../environments/environment';
-import * as envProd from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { AppError } from '../model/app-error';
 import { AppErrorCode } from '../model/app-error-code';
 import { Email } from '../model/email';
@@ -13,8 +12,7 @@ import { Person } from '../model/person';
 
 @Injectable()
 export class SendEmailService {
-  private static readonly MAIL_SERVER_URL: string = isDevMode() ? envDev.environment.mailSeverUrl : envProd.environment.mailSeverUrl;
-  private static readonly ENDPOINT_BASE_URL: string = (SendEmailService.MAIL_SERVER_URL || '') + '/email/v1';
+  private static readonly ENDPOINT_BASE_URL: string = (environment.mailServerUrl || '') + '/email/v1';
 
   constructor(private http: HttpClient) { }
 

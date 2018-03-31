@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  mailSeverUrl: 'https://localhost:8080'
+  mailServerUrl: ''
 };
