@@ -1,0 +1,196 @@
+<mat-list>
+  <mat-list-item id="notification">
+    <div mat-line>
+      <span class="message">
+        <span>Server status:</span>
+        <span *ngIf="isServerUp">
+          <mat-icon>cloud_done</mat-icon>Up and running
+        </span>
+        <span class="mat-error" *ngIf="isServerUp === false">
+          <mat-icon>cloud_off</mat-icon>Down at the moment, please check again later!
+        </span>
+      </span>
+      <button mat-button color="primary" (click)="checkServerStatus(true)">
+        <mat-icon>replay</mat-icon><span>Check Status</span>
+      </button>
+    </div>
+  </mat-list-item>
+</mat-list>
+
+<mat-divider></mat-divider>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h4>Compose your email below. Please fill in all fields marked with *</h4>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="emailForm" *ngIf="emailForm" class="formGroup" novalidate (ngSubmit)="submit()">
+      <div>
+        <h4 class="step"><mat-icon>looks_one</mat-icon>Fill in the details</h4>
+        <p>Press ENTER / TAB key to confirm email entries</p>
+      </div>
+
+      <mat-input-container>
+        <input tabIndex="1" matInput required class="form-control" placeholder="From:" formControlName="senderInput" name="senderInput"
+               [matChipInputFor]="sender"
+               [errorStateMatcher]="sendFormErrorsMatcher"
+               [matChipInputSeparatorKeyCodes]="chipListConfig.separatorKeysCodes"
+               [matChipInputAddOnBlur]="chipListConfig.addOnBlur"
+               (matChipInputTokenEnd)="addChip($event, 'sender')">
+        <mat-hint align="start" *ngIf="emailForm.controls['senderInput'].enabled">
+          Enter your email
+        </mat-hint>
+        <mat-hint align="start" *ngIf="emailForm.controls['senderInput'].disabled">
+          To change sender, remove the existing email first
+        </mat-hint>
+        <mat-error *ngIf="emailForm.controls['senderInput'].hasError('required') || emailForm.controls['senderInput'].hasError('email')">
+          Please enter a valid email
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['senderInput'].hasError('single')">
+          Only one sender allowed. Please remove the existing email first
+        </mat-error>
+      </mat-input-container>
+      <mat-chip-list #sender>
+        <mat-chip *ngFor="let recipient of emailForm.get('sender')['controls']; let i = index;"
+                  [selectable]="chipListConfig.selectable"
+                  [removable]="chipListConfig.removable"
+                  (remove)="removeChip(i, 'sender')">
+          {{recipient.value}}
+          <mat-icon matChipRemove *ngIf="chipListConfig.removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-input-container>
+        <input tabIndex="2" matInput required class="form-control" placeholder="To:" formControlName="recipientsInput" name="recipientsInput"
+               [matChipInputFor]="recipients"
+               [errorStateMatcher]="sendFormErrorsMatcher"
+               [matChipInputSeparatorKeyCodes]="chipListConfig.separatorKeysCodes"
+               [matChipInputAddOnBlur]="chipListConfig.addOnBlur"
+               (matChipInputTokenEnd)="addChip($event, 'recipients')">
+        <mat-hint align="start">
+          Multiple recipients allowed
+        </mat-hint>
+        <mat-error *ngIf="emailForm.controls['recipientsInput'].hasError('required') || emailForm.controls['recipientsInput'].hasError('email')">
+          Please enter a valid email
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['recipientsInput'].hasError('maxsize')">
+          Too many email, please remove some existing ones before adding
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['recipientsInput'].hasError('duplicate')">
+          Email already added, duplicates not allowed
+        </mat-error>
+      </mat-input-container>
+      <mat-chip-list #recipients>
+        <mat-chip *ngFor="let recipient of emailForm.get('recipients')['controls']; let i = index;"
+                  [selectable]="chipListConfig.selectable"
+                  [removable]="chipListConfig.removable"
+                  (remove)="removeChip(i, 'recipients')">
+          {{recipient.value}}
+          <mat-icon matChipRemove *ngIf="chipListConfig.removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-input-container>
+        <input tabIndex="3" matInput class="form-control" placeholder="CC:" formControlName="ccsInput" name="ccsInput"
+               [matChipInputFor]="ccs"
+               [errorStateMatcher]="sendFormErrorsMatcher"
+               [matChipInputSeparatorKeyCodes]="chipListConfig.separatorKeysCodes"
+               [matChipInputAddOnBlur]="chipListConfig.addOnBlur"
+               (matChipInputTokenEnd)="addChip($event, 'ccs')">
+        <mat-hint align="start">
+          Multiple recipients allowed
+        </mat-hint>
+        <mat-error *ngIf="emailForm.controls['ccsInput'].hasError('email')">
+          Please enter a valid email
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['ccsInput'].hasError('maxsize')">
+          Too many email, please remove some existing ones before adding
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['ccsInput'].hasError('duplicate')">
+          Email already added, duplicates not allowed
+        </mat-error>
+      </mat-input-container>
+      <mat-chip-list #ccs>
+        <mat-chip *ngFor="let cc of emailForm.get('ccs')['controls']; let i = index;"
+                  [selectable]="chipListConfig.selectable"
+                  [removable]="chipListConfig.removable"
+                  (remove)="removeChip(i, 'ccs')">
+          {{cc.value}}
+          <mat-icon matChipRemove *ngIf="chipListConfig.removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-input-container>
+        <input tabIndex="4" matInput class="form-control" placeholder="BCC:" formControlName="bccsInput" name="bccsInput"
+               [matChipInputFor]="bccs"
+               [errorStateMatcher]="sendFormErrorsMatcher"
+               [matChipInputSeparatorKeyCodes]="chipListConfig.separatorKeysCodes"
+               [matChipInputAddOnBlur]="chipListConfig.addOnBlur"
+               (matChipInputTokenEnd)="addChip($event, 'bccs')">
+        <mat-hint align="start">
+          Multiple recipients allowed
+        </mat-hint>
+        <mat-error *ngIf="emailForm.controls['bccsInput'].hasError('email')">
+          Please enter a valid email
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['bccsInput'].hasError('maxsize')">
+          Too many email, please remove some existing ones before adding
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['bccsInput'].hasError('duplicate')">
+          Email already added, duplicates not allowed
+        </mat-error>
+      </mat-input-container>
+      <mat-chip-list #bccs>
+        <mat-chip *ngFor="let bcc of emailForm.get('bccs')['controls']; let i = index;"
+                  [selectable]="chipListConfig.selectable"
+                  [removable]="chipListConfig.removable"
+                  (remove)="removeChip(i, 'bccs')">
+          {{bcc.value}}
+          <mat-icon matChipRemove *ngIf="chipListConfig.removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <h4 class="step"><mat-icon>looks_two</mat-icon>Compose the email</h4>
+
+      <mat-form-field>
+        <input tabIndex="5" matInput class="form-control" formControlName="subject" name="subject" placeholder="Subject:"
+               [errorStateMatcher]="sendFormErrorsMatcher">
+        <mat-error *ngIf="emailForm.controls['subject'].hasError('maxlength')">
+          Subject is too long, please reduce the characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea tabIndex="6" matInput required class="form-control" formControlName="content" name="content" placeholder="Message"
+                  [errorStateMatcher]="sendFormErrorsMatcher">
+        </textarea>
+        <mat-error *ngIf="emailForm.controls['content'].hasError('blank')">
+          Blank email is not allowed
+        </mat-error>
+      </mat-form-field>
+
+      <mat-card-actions>
+        <div>
+          <button tabIndex="7" type="button" mat-button (click)="edit()" *ngIf="isServerUp && enableEdit">Reuse</button>
+          <button tabIndex="8" type="button" mat-button (click)="reset()">Reset</button>
+          <button tabIndex="9" type="submit" mat-raised-button color="primary" [disabled]="disableSubmit()">
+            Submit
+          </button>
+        </div>
+      </mat-card-actions>
+      <mat-divider></mat-divider>
+    </form>
+    <mat-card-footer>
+      <div *ngIf="!isServerUp" class="mat-caption mat-error">Email submission is disabled while server is down</div>
+    </mat-card-footer>
+  </mat-card-content>
+</mat-card>
+
+<div>
+  <p>Form value: {{ emailForm.value | json }}</p>
+</div>
+<div>
+  Submitted: {{ enableEdit }}
+</div>
