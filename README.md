@@ -6,9 +6,6 @@ The aim of the system is to provide a smooth experience to the user.
 
 This project uses Angular for the frontend and Spring Boot for the backend integration. 
 
-* auto-gen TOC:
-{:toc}
-
 
 ## Technology Used
 * Angular Material - The UI framework used for the design of the SPA
