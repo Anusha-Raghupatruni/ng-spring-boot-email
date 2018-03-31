@@ -156,6 +156,7 @@ HTTP Client to submit the REST requests)
 * More unit tests for the Java REST API and DTOs
 * Integration tests for connections to the external mail system (for the error cases)
 * Can create Postman scripts for testing and validating both incoming to the REST API and outing to the external REST API
+* Browsers and mobile testing of the UI
 
 ### Documentation
 The REST API should be documented e.g as YAML files
