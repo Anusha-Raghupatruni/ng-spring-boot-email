@@ -11,7 +11,7 @@ This project uses Angular for the frontend and Spring Boot for the backend integ
 * Angular Material - The UI framework used for the design of the SPA
 * Angular 5 - The frontend SPA allowing user's to compose and send email
 * Spring Boot 2.0 - To make HTTP connections to 3rd party mail system and provide a HTTP REST API for the SPA.
-* Java 1.8 - To run Spring Boot
+* Java 8 - To run Spring Boot
 * Maven 3 - Build tools for the Spring Boot based project
 
 ## Local Development
@@ -21,7 +21,7 @@ entire application cannot be completed, which means developer testing might be l
 * I deliberately tried to setup a project that can run the back and front end together, so that the end to end flow of requests can be seen through.
 
 ### Requirements
-* Java JDK 1.8
+* Java JDK 8
 * Maven 3
 
 ### Pre-requsite
