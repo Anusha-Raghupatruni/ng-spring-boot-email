@@ -104,8 +104,8 @@ mail server is down. The user can freely re-check the mail server status and sen
 * Basic try-and-fail mechanism for making requests to the external mail systems
 
 ### Testing
-* Some Spring controller test cases
-* Basic test cases for creating a new message to send to the two different external mail systems
+* Some Spring controller test cases in JUnit
+* Basic JUnit test cases for creating a new message to send to the two different external mail systems
 
 ### Deployment
 * Setup and deploy the project into Heroku
