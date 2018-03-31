@@ -66,7 +66,11 @@ public class SendGridEmailRESTClient implements EmailRESTClient {
         SendGridEmail.Personalizations personalization = new SendGridEmail.Personalizations();
         personalizations.add(personalization);
 
-        personalization.setSubject(email.getSubject());
+        // Special case for Subject, in Send Grid API it says the field is optional but still have
+        // minimum length of 1!
+        personalization.setSubject(email.getSubject() == null || email.getSubject().isEmpty() ?
+                " " : email.getSubject());
+
         personalization.setTo(getPersonalizationEmails(email.getRecipients()));
         personalization.setCc(getPersonalizationEmails(email.getCcs()));
         personalization.setBcc(getPersonalizationEmails(email.getBccs()));

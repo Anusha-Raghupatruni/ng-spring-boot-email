@@ -21,7 +21,7 @@ public class SendEmailServiceImpl implements SendEmailService {
             SendGridEmailRESTClient sendGridEmailClient) {
         emailClients = new ArrayList<>(2);
         emailClients.add(sendGridEmailClient);
-//        emailClients.add(mailGunEmailClient);
+        emailClients.add(mailGunEmailClient);
     }
 
     public EmailRESTClientResponse sendEmail(Email email) {

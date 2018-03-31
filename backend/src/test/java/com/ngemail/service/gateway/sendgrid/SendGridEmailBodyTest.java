@@ -28,7 +28,7 @@ public class SendGridEmailBodyTest {
 
         final String jsonString = sendGridEmailRESTClient.getEmailAsJSONString(testEmail);
         assertEquals("JSON string does not match",
-                "{\"personalizations\":[{" + "\"subject\":null,"
+                "{\"personalizations\":[{" + "\"subject\":\" \","
                         + "\"to\":[{\"email\":\"def@test.com\"}],"
                         + "\"cc\":null,"
                         + "\"bcc\":null}],"
@@ -48,7 +48,7 @@ public class SendGridEmailBodyTest {
 
         final String jsonString = sendGridEmailRESTClient.getEmailAsJSONString(testEmail);
         assertEquals("JSON string does not match",
-                "{\"personalizations\":[{\"subject\":null,"
+                "{\"personalizations\":[{\"subject\":\" \","
                         + "\"to\":[{\"email\":\"def@test.com\"},{\"email\":\"ghi@test.com\"}],"
                         + "\"cc\":null,"
                         + "\"bcc\":null}],"
